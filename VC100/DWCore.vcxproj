@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClInclude Include="..\src\Auth\AuthCodes.h" />
     <ClInclude Include="..\src\Auth\AuthServer.h" />
+    <ClInclude Include="..\src\Auth\AuthSockets.h" />
     <ClInclude Include="..\src\Auth\BigNumber.h" />
     <ClInclude Include="..\src\Auth\sha1.h" />
     <ClInclude Include="..\src\Common.h" />
@@ -22,6 +23,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Auth\AuthServer.cpp" />
+    <ClCompile Include="..\src\Auth\AuthSockets.cpp" />
     <ClCompile Include="..\src\Auth\BigNumber.cpp" />
     <ClCompile Include="..\src\Auth\sha1.cpp" />
     <ClCompile Include="..\src\logs\Logs.cpp" />
@@ -119,6 +121,9 @@
       <ImportLibrary>$(IntDir)dwcore.lib</ImportLibrary>
       <AdditionalOptions>/MACHINE:I386 %(AdditionalOptions)</AdditionalOptions>
     </Link>
+    <PostBuildEvent>
+      <Command>copy ..\dep\lib\*.dll ..\bin\$(Platform)_$(Configuration)</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

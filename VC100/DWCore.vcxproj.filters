@@ -27,6 +27,9 @@
     <ClInclude Include="..\src\Common.h" />
     <ClInclude Include="..\src\Main.h" />
     <ClInclude Include="..\src\revision.h" />
+    <ClInclude Include="..\src\Auth\AuthSockets.h">
+      <Filter>Auth</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Auth\AuthServer.cpp">
@@ -42,5 +45,8 @@
       <Filter>Logs</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Main.cpp" />
+    <ClCompile Include="..\src\Auth\AuthSockets.cpp">
+      <Filter>Auth</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

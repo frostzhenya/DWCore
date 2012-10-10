@@ -8,6 +8,7 @@ del *.tlog /s
 del *.pdb /s
 del *.manifest /s
 del *.lastbuildstate /s
+del bin\*.dll
 rd ipch /s /q
 rd bin /s /q
 rd VC100\dwcore__Win32_Release /s /q
