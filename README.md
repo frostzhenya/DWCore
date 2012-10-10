@@ -1,7 +1,7 @@
-DWCore
+п»їDWCore
 ======
 DotaWoW Server
 
-Автор: lovepsone
+РђРІС‚РѕСЂ: lovepsone
 
 
