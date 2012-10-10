@@ -15,7 +15,8 @@
 #include "Auth\AuthCodes.h"
 
 
-//const int s_BYTE_SIZE = 32;
+
+//temporary settings
 int WS_PORT = 7000;
 int RS_PORT = 3724;
 
@@ -76,12 +77,13 @@ void main()
 		{
 			sLog.MainLog("Bind port: %d\n", RS_PORT);
 		}
-
+	
 		int l = listen(hSocket, SOMAXCONN);
 		if (l==0)
 		{
 			sLog.MainLog("Listen port: %d\n", RS_PORT);
 		}
+
 
 		int k = sizeof(sock_in);
 		newSocket = accept(hSocket, (sockaddr*)&sock_in, &k);
