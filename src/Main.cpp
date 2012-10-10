@@ -54,6 +54,7 @@ struct CMD_AUTH_LOGON_CHALLENGE_c
 
 void main()
 {
+	Log sLog;
 	CMD_AUTH_LOGON_CHALLENGE_c AUTH;
 	std::string LP;
 	std::string HashBuffer;
@@ -161,12 +162,12 @@ void main()
 			BigNumber x;
 			x.SetBinary(sha.GetDigest(), sha.GetLength());
 			v = g.ModExp(x, N);
-			
+
 			// No SQL injection (username escaped)
-			/*const char *v_hex, *s_hex;
-			v_hex = v.AsHexStr();
-			s_hex = s.AsHexStr();*/
-			
+			//const char *v_hex, *s_hex;
+			//v_hex = v.AsHexStr();
+			//s_hex = s.AsHexStr();
+
 			b.SetRand(19 * 8);
 			BigNumber gmod = g.ModExp(b, N);
 			B = ((v * 3) + gmod) % N;

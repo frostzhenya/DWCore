@@ -6,8 +6,9 @@
 #include "..\Common.h"
 #include <Windows.h>
 
-const char* LOG_FILE_NAME = "DWCore.log";
-char LOG_FILE[];
+const char* MAIN_LOG_FILE_NAME = "DWCore.log";
+const char* ERROR_LOG_FILE_NAME = "Errors.log";
+const char* DEBUG_LOG_FILE_NAME = "Debugs.log";
 
 Log::Log()
 {
@@ -60,9 +61,9 @@ void Log::MainLog(const char* _fromat,...)
 	char* char_s;
 	char char_c;
 	std::string string_s;
-	std::ofstream file(LOG_FILE_NAME, std::ios::out | std::ios::app);
+	std::ofstream file(MAIN_LOG_FILE_NAME, std::ios::out | std::ios::app);
 
-	for(long int i=0; i < std::strlen(_fromat); i++)
+	for(int i = 0; i < std::strlen(_fromat); i++)
 	{
 		if (_fromat[i] == '%')
 		{
@@ -112,8 +113,181 @@ void Log::MainLog(const char* _fromat,...)
 			}
 			i=i+2;
 		}
-		std::cout<<_fromat[i];
-		file<<_fromat[i];
+		if (i == 0)
+		{
+			std::cout<<times().c_str()<<_fromat[i];
+			file<<times().c_str()<<_fromat[i];
+		}
+		else
+		{
+			std::cout<<_fromat[i];
+			file<<_fromat[i];
+		}
 	}
 	va_end(MList);
+}
+
+void Log::ErrorLog(const char* _fromat,...)
+{
+	// test in color
+	setColor(RED);
+
+	va_list MList;
+	va_start(MList, _fromat);
+	int int_d;
+	unsigned short u_s;
+	char* char_s;
+	char char_c;
+	std::string string_s;
+	std::ofstream file(ERROR_LOG_FILE_NAME, std::ios::out | std::ios::app);
+
+	for(int i = 0; i < std::strlen(_fromat); i++)
+	{
+		if (_fromat[i] == '%')
+		{
+			switch(_fromat[i+1])
+			{
+			case 'd':
+				{
+					int_d = va_arg(MList, int);
+					std::cout<<int_d;
+					file<<int_d;
+					break;
+				}
+			case 's':
+				{
+					if (_fromat[i+2] == 't')
+					{
+						string_s = va_arg(MList, std::string);
+						std::cout<<string_s;
+						file<<string_s;
+						i=i+1;
+					}
+					else
+					{
+						char_s = va_arg(MList, char*);
+						std::cout<<char_s;
+						file<<char_s;
+					}
+					break;
+				}
+			case 'u':
+				{
+					if(_fromat[i+2] == 's')
+					{
+						u_s = va_arg(MList, unsigned short);
+						std::cout<<u_s;
+						file<<u_s;
+						i=i+1;
+					}
+					break;
+				}
+			case 'c':
+				{
+						char_c = va_arg(MList, char);
+						std::cout<<char_c;
+						file<<char_c;
+				}
+			}
+			i=i+2;
+		}
+		if (i == 0)
+		{
+			std::cout<<times().c_str()<<_fromat[i];
+			file<<times().c_str()<<_fromat[i];
+		}
+		else
+		{
+			std::cout<<_fromat[i];
+			file<<_fromat[i];
+		}
+	}
+	va_end(MList);
+}
+
+void Log::DebugLog(const char* _fromat,...)
+{
+	// test in color
+	setColor(GREEN);
+
+	va_list MList;
+	va_start(MList, _fromat);
+	int int_d;
+	unsigned short u_s;
+	char* char_s;
+	char char_c;
+	std::string string_s;
+	std::ofstream file(DEBUG_LOG_FILE_NAME, std::ios::out | std::ios::app);
+
+	for(int i = 0; i < std::strlen(_fromat); i++)
+	{
+		if (_fromat[i] == '%')
+		{
+			switch(_fromat[i+1])
+			{
+			case 'd':
+				{
+					int_d = va_arg(MList, int);
+					std::cout<<int_d;
+					file<<int_d;
+					break;
+				}
+			case 's':
+				{
+					if (_fromat[i+2] == 't')
+					{
+						string_s = va_arg(MList, std::string);
+						std::cout<<string_s;
+						file<<string_s;
+						i=i+1;
+					}
+					else
+					{
+						char_s = va_arg(MList, char*);
+						std::cout<<char_s;
+						file<<char_s;
+					}
+					break;
+				}
+			case 'u':
+				{
+					if(_fromat[i+2] == 's')
+					{
+						u_s = va_arg(MList, unsigned short);
+						std::cout<<u_s;
+						file<<u_s;
+						i=i+1;
+					}
+					break;
+				}
+			case 'c':
+				{
+						char_c = va_arg(MList, char);
+						std::cout<<char_c;
+						file<<char_c;
+				}
+			}
+			i=i+2;
+		}
+		if (i == 0)
+		{
+			std::cout<<times().c_str()<<_fromat[i];
+			file<<times().c_str()<<_fromat[i];
+		}
+		else
+		{
+			std::cout<<_fromat[i];
+			file<<_fromat[i];
+		}
+	}
+	va_end(MList);
+}
+
+std::string Log::times()
+{
+    time_t t = time(NULL);
+    tm* aTm = localtime(&t);
+    char buf[22];
+    sprintf(buf,"%04d.%02d.%02d[%02d:%02d:%02d] ",aTm->tm_year+1900,aTm->tm_mon+1,aTm->tm_mday,aTm->tm_hour,aTm->tm_min,aTm->tm_sec);
+    return std::string(buf);
 }

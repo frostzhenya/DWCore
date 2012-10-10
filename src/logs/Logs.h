@@ -1,11 +1,10 @@
 /*
 *
 */
-
-#include "..\Common.h"
-
 #ifndef _LOGS_H
 #define _LOGS_H
+
+#include "..\Common.h"
 
 enum Color
 {
@@ -36,8 +35,9 @@ class Log
 
 		void setColor(Color color);
 		void MainLog(const char* _fromat,...);
-} sLog;
-
-
-
+		void ErrorLog(const char* _fromat,...);
+		void DebugLog(const char* _fromat,...);
+	private:
+		std::string times();
+};
 #endif
