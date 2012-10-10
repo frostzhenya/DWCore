@@ -18,6 +18,7 @@
     <ClInclude Include="..\src\Common.h" />
     <ClInclude Include="..\src\logs\Logs.h" />
     <ClInclude Include="..\src\Main.h" />
+    <ClInclude Include="..\src\revision.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Auth\AuthServer.cpp" />
