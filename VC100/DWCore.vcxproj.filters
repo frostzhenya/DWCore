@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Auth">
+      <UniqueIdentifier>{fc1afd25-a9ea-4476-8db9-6ecc178a2598}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Logs">
+      <UniqueIdentifier>{07a38e50-2f74-4c76-9b56-5e81428a4957}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\Auth\AuthCodes.h">
+      <Filter>Auth</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Auth\AuthServer.h">
+      <Filter>Auth</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Auth\BigNumber.h">
+      <Filter>Auth</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Auth\sha1.h">
+      <Filter>Auth</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\logs\Logs.h">
+      <Filter>Logs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Common.h" />
+    <ClInclude Include="..\src\Main.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\Auth\AuthServer.cpp">
+      <Filter>Auth</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Auth\BigNumber.cpp">
+      <Filter>Auth</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Auth\sha1.cpp">
+      <Filter>Auth</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\logs\Logs.cpp">
+      <Filter>Logs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Main.cpp" />
+  </ItemGroup>
+</Project>

@@ -1,4 +1,7 @@
 DWCore
 ======
+DotaWoW Server
 
-new
+Автор: lovepsone
+
+
