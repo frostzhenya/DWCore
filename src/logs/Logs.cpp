@@ -3,12 +3,56 @@
 */
 
 #include "Logs.h"
+#include "..\Common.h"
+#include <Windows.h>
 
 const char* LOG_FILE_NAME = "DWCore.log";
 char LOG_FILE[];
 
-void MainLog(const char* _fromat,...)
+Log::Log()
 {
+}
+
+Log::~Log()
+{
+}
+
+void Log::setColor(Color color)
+{
+	static unsigned short WinColorFG[Color_count] =
+	{
+        0,                                                  // BLACK
+        FOREGROUND_RED,                                     // RED
+        FOREGROUND_GREEN,                                   // GREEN
+        FOREGROUND_RED | FOREGROUND_GREEN,                  // BROWN
+        FOREGROUND_BLUE,                                    // BLUE
+        FOREGROUND_RED |                    FOREGROUND_BLUE,// MAGENTA
+        FOREGROUND_GREEN | FOREGROUND_BLUE,                 // CYAN
+        FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE,// WHITE
+                                                            // YELLOW
+        FOREGROUND_RED | FOREGROUND_GREEN |                   FOREGROUND_INTENSITY,
+                                                            // RED_BOLD
+        FOREGROUND_RED |                                      FOREGROUND_INTENSITY,
+                                                            // GREEN_BOLD
+        FOREGROUND_GREEN |                   FOREGROUND_INTENSITY,
+        FOREGROUND_BLUE | FOREGROUND_INTENSITY,             // BLUE_BOLD
+                                                            // MAGENTA_BOLD
+        FOREGROUND_RED |                    FOREGROUND_BLUE | FOREGROUND_INTENSITY,
+                                                            // CYAN_BOLD
+        FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY,
+                                                            // WHITE_BOLD
+        FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY
+    };
+
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(hConsole, WinColorFG[color]);
+}
+
+void Log::MainLog(const char* _fromat,...)
+{
+	// test in color
+	setColor(LCYAN);
+
 	va_list MList;
 	va_start(MList, _fromat);
 	int int_d;
@@ -18,7 +62,7 @@ void MainLog(const char* _fromat,...)
 	std::string string_s;
 	std::ofstream file(LOG_FILE_NAME, std::ios::out | std::ios::app);
 
-	for(long int i=0; i<std::strlen(_fromat); i++)
+	for(long int i=0; i < std::strlen(_fromat); i++)
 	{
 		if (_fromat[i] == '%')
 		{

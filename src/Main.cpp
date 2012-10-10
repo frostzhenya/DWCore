@@ -73,13 +73,13 @@ void main()
 		int i = bind(hSocket, (sockaddr*)(&sock_in), sizeof(sock_in));
 		if (i==0)
 		{
-			MainLog("Bind port: %d\n", RS_PORT);
+			sLog.MainLog("Bind port: %d\n", RS_PORT);
 		}
 
 		int l = listen(hSocket, SOMAXCONN);
 		if (l==0)
 		{
-			MainLog("Listen port: %d\n", RS_PORT);
+			sLog.MainLog("Listen port: %d\n", RS_PORT);
 		}
 
 		int k = sizeof(sock_in);
@@ -104,11 +104,11 @@ void main()
 				AUTH.AccountName += buffer[34+i-1];
 			}
 
-			MainLog("AUTH_LOGON_CHALLENGE ['%st'] ['%st'] ['%us']\n", AUTH.AccountName, AUTH.ClientLang, AUTH.ClientBuild);
+			sLog.MainLog("AUTH_LOGON_CHALLENGE ['%st'] ['%st'] ['%us']\n", AUTH.AccountName, AUTH.ClientLang, AUTH.ClientBuild);
 			// check Client Build
 			if (UPDATEFIELDS_BUILD != AUTH.ClientBuild)
 			{
-				MainLog("Version mismatch. Upgrade the DWCore.");
+				sLog.MainLog("Version mismatch. Upgrade the DWCore.");
 				buffer[0] = CMD_AUTH_LOGON_CHALLENGE;
 				buffer[1] = 0;
 				buffer[2] = AUTH_INVALID_VERSION;
