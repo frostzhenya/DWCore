@@ -35,6 +35,7 @@ bool AuthSockets::BuildSocketsAuth()
 		if (i == 0 && l == 0)
 		{
 			AuthSocketsLog.MainLog("Auth bind and listen port %d\n", AuthSocketPort);
+			_OSocket = true;
 		}
 		else
 		{
@@ -42,4 +43,6 @@ bool AuthSockets::BuildSocketsAuth()
 			exit(0);
 		}
 	}
+
+	return _OSocket;
 }
