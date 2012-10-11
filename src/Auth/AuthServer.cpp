@@ -68,7 +68,7 @@ typedef struct AUTH_LOGON_PROOF_S
 	unsigned short unkFlags;  // some flags (AccountMsgAvailable = 0x01)
 } sAuthLogonProof_S;
 
-/// Constructor - set the N and g values for SRP6
+// Constructor - set the N and g values for SRP6
 AuthServer::AuthServer()
 {
 	N.SetHexStr("894B645E89E1535BBDAD5B8B290650530801B18EBFBF5E8FAB3C82872A3E9BB7");
@@ -84,7 +84,7 @@ AuthServer::~AuthServer()
 {
 }
 
-/// Make the SRP6 calculation from hash in dB
+// Make the SRP6 calculation from hash in dB
 void AuthServer::_SetVSFields(const std::string& rI)
 {
     s.SetRand(s_BYTE_SIZE * 8);
@@ -116,7 +116,6 @@ void AuthServer::_SetVSFields(const std::string& rI)
     OPENSSL_free((void*)v_hex);
     OPENSSL_free((void*)s_hex);
 }
-
 
 void AuthServer::SendProof(Sha1Hash sha)
 {
@@ -150,22 +149,33 @@ void AuthServer::SendProof(Sha1Hash sha)
     }
 }
 
+// Logon Challenge command handler
 bool AuthServer::_HandleLogonChallenge()
 {
+	ASLog.DebugLog("Entering _HandleLogonChallenge");
+	return 0;
 }
 
 bool AuthServer::_HandleLogonProof()
 {
+	ASLog.DebugLog("Entering _HandleLogonProof");
+	return 0;
 }
 
 bool AuthServer::_HandleReconnectChallenge()
 {
+	ASLog.DebugLog("Entering _HandleReconnectChallenge");
+	return 0;
 }
 
 bool AuthServer::_HandleReconnectProof()
 {
+	ASLog.DebugLog("Entering _HandleReconnectProof");
+	return 0;
 }
 
 bool AuthServer::_HandleRealmList()
 {
+	ASLog.DebugLog("Entering _HandleRealmList");
+	return 0;
 }
