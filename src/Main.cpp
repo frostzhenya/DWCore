@@ -7,22 +7,24 @@
 //#include <mysql\mysql.h>
 #include <openssl/sha.h>
 #include <openssl/crypto.h>
-#include <WinSock2.h>
-#pragma comment(lib, "ws2_32.lib")
+//#include <WinSock2.h>
+//#pragma comment(lib, "ws2_32.lib")
 
 #include "Auth\sha1.h"
 #include "Auth\BigNumber.h"
 #include "Auth\AuthCodes.h"
 
 
+// для теста инклуды
+#include "Auth\BufferedSocket.h"
 
 //temporary settings
 int WS_PORT = 7000;
 int RS_PORT = 3724;
 
-WSADATA data;
+/*WSADATA data;
 SOCKET hSocket, newSocket;
-sockaddr_in sock_in;
+sockaddr_in sock_in;*/
 
 //const int WS_BUFFER_SIZE = 30*1024;
 char buffer[0x1000], buffer2[0x1000];
@@ -55,7 +57,7 @@ struct CMD_AUTH_LOGON_CHALLENGE_c
 
 void main()
 {
-	Log sLog;
+	/*Log sLog;
 	CMD_AUTH_LOGON_CHALLENGE_c AUTH;
 	std::string LP;
 	std::string HashBuffer;
@@ -231,6 +233,10 @@ void main()
 
 	closesocket(hSocket); // закрываем сокет
 	WSACleanup(); // освобождение
+	*/
+	ByteBufferSocket pct;
+
+	pct.BuildSocketsAuth();
 	system("pause");
 
 }

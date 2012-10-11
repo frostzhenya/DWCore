@@ -12,9 +12,6 @@
     <ClInclude Include="..\src\Auth\AuthCodes.h">
       <Filter>Auth</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Auth\AuthServer.h">
-      <Filter>Auth</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\Auth\BigNumber.h">
       <Filter>Auth</Filter>
     </ClInclude>
@@ -27,14 +24,14 @@
     <ClInclude Include="..\src\Common.h" />
     <ClInclude Include="..\src\Main.h" />
     <ClInclude Include="..\src\revision.h" />
-    <ClInclude Include="..\src\Auth\AuthSockets.h">
+    <ClInclude Include="..\src\Auth\BufferedSocket.h">
+      <Filter>Auth</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Auth\AuthServer.h">
       <Filter>Auth</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\Auth\AuthServer.cpp">
-      <Filter>Auth</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Auth\BigNumber.cpp">
       <Filter>Auth</Filter>
     </ClCompile>
@@ -45,8 +42,14 @@
       <Filter>Logs</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Main.cpp" />
-    <ClCompile Include="..\src\Auth\AuthSockets.cpp">
+    <ClCompile Include="..\src\Auth\BufferedSocket.cpp">
       <Filter>Auth</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Auth\AuthServer.cpp">
+      <Filter>Auth</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\src\infotype.txt" />
   </ItemGroup>
 </Project>

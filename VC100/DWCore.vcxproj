@@ -12,8 +12,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Auth\AuthCodes.h" />
+    <ClInclude Include="..\src\Auth\BufferedSocket.h" />
     <ClInclude Include="..\src\Auth\AuthServer.h" />
-    <ClInclude Include="..\src\Auth\AuthSockets.h" />
     <ClInclude Include="..\src\Auth\BigNumber.h" />
     <ClInclude Include="..\src\Auth\sha1.h" />
     <ClInclude Include="..\src\Common.h" />
@@ -22,12 +22,15 @@
     <ClInclude Include="..\src\revision.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\Auth\BufferedSocket.cpp" />
     <ClCompile Include="..\src\Auth\AuthServer.cpp" />
-    <ClCompile Include="..\src\Auth\AuthSockets.cpp" />
     <ClCompile Include="..\src\Auth\BigNumber.cpp" />
     <ClCompile Include="..\src\Auth\sha1.cpp" />
     <ClCompile Include="..\src\logs\Logs.cpp" />
     <ClCompile Include="..\src\Main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\src\infotype.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{2834B803-B3FC-4B62-8F80-A3C82C262E9F}</ProjectGuid>
