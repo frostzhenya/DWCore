@@ -3,6 +3,7 @@
 */
 
 #include "BufferedSocket.h"
+#include <new>
 
 ByteBufferSocket::ByteBufferSocket()
 {
@@ -71,17 +72,30 @@ bool ByteBufferSocket::BuildSocketsAuth()
 void ByteBufferSocket::BufferClear(int size)
 {
 	for (int i = 0; i <= size; i++)
-			{
-				ByteBuffer[i] = 0;
-			}
+	{
+		ByteBuffer[i] = 0;
+	}
 }
 
 void ByteBufferSocket::BufferAuth_recv()
 {
-	recv(AuthSocket, ByteBuffer, sizeof(ByteBuffer), 0);
+	Count_p = recv(AuthSocket, ByteBuffer, sizeof(ByteBuffer), 0);
 }
 
 void ByteBufferSocket::BufferAuth_send(int SizeBuff)
 {
 	send(AuthSocket, ByteBuffer, SizeBuff, 0);
+}
+
+void ByteBufferSocket::AppendPackage(unsigned char ArrBytes[], int CountBytes, int point)
+{
+	for(int i = point; i <= CountBytes; i++)
+	{
+		ByteBuffer[i] = ArrBytes[i - point];
+	}
+}
+
+int ByteBufferSocket::SizePackage()
+{
+	return Count_p;
 }

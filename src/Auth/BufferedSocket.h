@@ -16,14 +16,19 @@ class ByteBufferSocket
 		ByteBufferSocket();
 		~ByteBufferSocket();
 
+		char ByteBuffer[0x1000];
+
+		// ByteBuffer
 		bool BuildSocketsAuth();
 		void BufferClear(int size);
 		void BufferAuth_recv();
 		void BufferAuth_send(int SizeBuff);
+		void AppendPackage(unsigned char ArrBytes[], int CountBytes, int point);
+		int SizePackage();
 
 	private:
-		char ByteBuffer[0x1000];
-
+		//char ByteBuffer[0x1000];
+		int Count_p;
 		bool ChekSocket;
 		Log BBSLog;
 
