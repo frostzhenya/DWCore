@@ -60,7 +60,7 @@ void Log::MainLog(const char* _fromat,...)
 	unsigned short u_s;
 	char* char_s;
 	char char_c;
-	std::string string_s;
+
 	std::ofstream file(MAIN_LOG_FILE_NAME, std::ios::out | std::ios::app);
 
 	for(int i = 0; i < std::strlen(_fromat); i++)
@@ -78,19 +78,10 @@ void Log::MainLog(const char* _fromat,...)
 				}
 			case 's':
 				{
-					if (_fromat[i+2] == 't')
-					{
-						string_s = va_arg(MList, std::string);
-						std::cout<<string_s;
-						file<<string_s;
-						i=i+1;
-					}
-					else
-					{
-						char_s = va_arg(MList, char*);
-						std::cout<<char_s;
-						file<<char_s;
-					}
+					char_s = va_arg(MList, char*);
+					std::cout<<char_s;
+					file<<char_s;
+
 					break;
 				}
 			case 'u':
@@ -138,7 +129,7 @@ void Log::ErrorLog(const char* _fromat,...)
 	unsigned short u_s;
 	char* char_s;
 	char char_c;
-	std::string string_s;
+
 	std::ofstream file(ERROR_LOG_FILE_NAME, std::ios::out | std::ios::app);
 
 	for(int i = 0; i < std::strlen(_fromat); i++)
@@ -156,19 +147,9 @@ void Log::ErrorLog(const char* _fromat,...)
 				}
 			case 's':
 				{
-					if (_fromat[i+2] == 't')
-					{
-						string_s = va_arg(MList, std::string);
-						std::cout<<string_s;
-						file<<string_s;
-						i=i+1;
-					}
-					else
-					{
-						char_s = va_arg(MList, char*);
-						std::cout<<char_s;
-						file<<char_s;
-					}
+					char_s = va_arg(MList, char*);
+					std::cout<<char_s;
+					file<<char_s;
 					break;
 				}
 			case 'u':
@@ -235,19 +216,9 @@ void Log::DebugLog(const char* _fromat,...)
 				}
 			case 's':
 				{
-					if (_fromat[i+2] == 't')
-					{
-						string_s = va_arg(MList, std::string);
-						std::cout<<string_s;
-						file<<string_s;
-						i=i+1;
-					}
-					else
-					{
-						char_s = va_arg(MList, char*);
-						std::cout<<char_s;
-						file<<char_s;
-					}
+					char_s = va_arg(MList, char*);
+					std::cout<<char_s;
+					file<<char_s;
 					break;
 				}
 			case 'u':
