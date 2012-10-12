@@ -2,4 +2,4 @@
 * Revision in project
 */
 
-#define REVISION "0011"
+#define REVISION "0012"
