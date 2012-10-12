@@ -214,6 +214,7 @@ void Log::DebugLog(const char* _fromat,...)
 	va_start(MList, _fromat);
 	int int_d;
 	unsigned short u_s;
+	unsigned char u_c;
 	char* char_s;
 	char char_c;
 	std::string string_s;
@@ -251,11 +252,28 @@ void Log::DebugLog(const char* _fromat,...)
 				}
 			case 'u':
 				{
-					if(_fromat[i+2] == 's')
+					// unsigned short
+					if(_fromat[i+2] == 's' && _fromat[i+3] != '#')
 					{
 						u_s = va_arg(MList, unsigned short);
 						std::cout<<u_s;
 						file<<u_s;
+						i=i+1;
+					}
+					else if (_fromat[i+2] == 's' && _fromat[i+3] == '#' && _fromat[i+4] == 'x')
+					{
+						u_s = va_arg(MList, unsigned short);
+						std::cout<<"0x"<<std::hex<<u_s;
+						file<<"0x"<<std::hex<<u_s;
+						i=i+3;
+					}
+
+					// unsigned char
+					if (_fromat[i+2] == 'c')
+					{
+						u_c = va_arg(MList, unsigned char);
+						std::cout<<u_c;
+						file<<u_c;
 						i=i+1;
 					}
 					break;
