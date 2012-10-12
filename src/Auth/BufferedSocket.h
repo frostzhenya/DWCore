@@ -21,7 +21,8 @@ class ByteBufferSocket
 		// ByteBuffer
 		bool BuildSocketsAuth();
 		void BufferClear(int size);
-		void BufferAuth_recv();
+		void _recv(char buff[], int t_size);
+		void BufferAuth_recv(int t_size);
 		void BufferAuth_send(int SizeBuff);
 		void AppendPackage(unsigned char ArrBytes[], int CountBytes, int point);
 		int SizePackage();

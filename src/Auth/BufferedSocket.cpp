@@ -80,9 +80,14 @@ void ByteBufferSocket::BufferClear(int size)
 	}
 }
 
-void ByteBufferSocket::BufferAuth_recv()
+void ByteBufferSocket::_recv(char buff[], int t_size)
 {
-	Count_p = recv(AuthSocket, ByteBuffer, sizeof(ByteBuffer), 0);
+	Count_p = recv(AuthSocket, buff, t_size, 0);
+}
+
+void ByteBufferSocket::BufferAuth_recv(int t_size)
+{
+	Count_p = recv(AuthSocket, ByteBuffer, t_size, 0);
 }
 
 void ByteBufferSocket::BufferAuth_send(int SizeBuff)

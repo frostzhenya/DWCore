@@ -155,9 +155,8 @@ bool AuthServer::_HandleLogonChallenge()
 {
 	ASLog.DebugLog("Entering _HandleLogonChallenge\n");
 
-	ByteBufferSocket buf;
 	buf.BuildSocketsAuth();
-	buf.BufferAuth_recv();
+	buf.BufferAuth_recv(0x1000);
 
 	unsigned short remaining = ((sAuthLogonChallenge_C *)&buf.ByteBuffer)->size;
 	ASLog.DebugLog("[AuthChallenge] got header, body is %us#x bytes\n", remaining);
@@ -223,6 +222,12 @@ bool AuthServer::_HandleLogonChallenge()
 bool AuthServer::_HandleLogonProof()
 {
 	ASLog.DebugLog("Entering _HandleLogonProof\n");
+
+	ByteBufferSocket buf;
+	buf.BufferAuth_recv(sizeof(sAuthLogonProof_C));
+	// Read the packet
+	sAuthLogonProof_C lp;
+
 	return 0;
 }
 

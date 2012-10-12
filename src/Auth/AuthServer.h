@@ -26,6 +26,7 @@ class AuthServer
         bool _HandleRealmList();
 
 	private:
+		ByteBufferSocket buf;
         BigNumber N, s, g, v;
         BigNumber b, B;
         BigNumber K;
