@@ -4,6 +4,7 @@
 
 #include "AuthServer.h"
 #include "AuthCodes.h"
+#include <new>
 
 enum AccountFlags
 {
@@ -13,19 +14,19 @@ enum AccountFlags
 };
 
 //typedef sAuthLogonChallenge_C sAuthReconnectChallenge_C;
-/*
-typedef struct
+
+/*typedef struct
 {
-    uint8   cmd;
-    uint8   error;
-    uint8   unk2;
-    uint8   B[32];
-    uint8   g_len;
-    uint8   g[1];
-    uint8   N_len;
-    uint8   N[32];
-    uint8   s[32];
-    uint8   unk3[16];
+    unsigned char   cmd;
+    unsigned char   error;
+    unsigned char   unk2;
+    unsigned char   B[32];
+    unsigned char   g_len;
+    unsigned char   g[1];
+    unsigned char   N_len;
+    unsigned char   N[32];
+    unsigned char   s[32];
+    unsigned char   unk3[16];
 } sAuthLogonChallenge_S;
 */
 
@@ -152,30 +153,98 @@ void AuthServer::SendProof(Sha1Hash sha)
 // Logon Challenge command handler
 bool AuthServer::_HandleLogonChallenge()
 {
-	ASLog.DebugLog("Entering _HandleLogonChallenge");
-	return 0;
+	ASLog.DebugLog("Entering _HandleLogonChallenge\n");
+
+	ByteBufferSocket buf;
+	buf.BuildSocketsAuth();
+	buf.BufferAuth_recv();
+
+	unsigned short remaining = ((sAuthLogonChallenge_C *)&buf.ByteBuffer)->size;
+	ASLog.DebugLog("[AuthChallenge] got header, body is %us#x bytes\n", remaining);
+
+	// dynamic data
+	char* dynamicBuff = 0;
+	dynamicBuff = new char[buf.SizePackage()];
+	for (int i = 0; i < buf.SizePackage(); i++)
+	{
+		dynamicBuff[i] = buf.ByteBuffer[i];
+	}
+
+	sAuthLogonChallenge_C *ch = (sAuthLogonChallenge_C*)dynamicBuff;
+	ASLog.DebugLog("[AuthChallenge] got full packet, %us#x bytes\n", ch->size);
+	ASLog.DebugLog("[AuthChallenge] name(%d): '%s'\n",ch->I_len, ch->I);
+
+	//_build = ch->build;
+	_build = buf.ByteBuffer[11] + 256*buf.ByteBuffer[12]; // fixed
+	//_login = (const char*)ch->I;
+	//fixed
+	for (int i = 1; i <= buf.ByteBuffer[33]; i++)
+	{
+		_login += buf.ByteBuffer[34+i-1];
+	}
+    _os = (const char*)ch->os;
+
+	// clear memory
+	delete [] dynamicBuff;
+	dynamicBuff = 0;
+
+	buf.BufferClear(buf.SizePackage());
+	// generate Package
+	buf.ByteBuffer[0] = CMD_AUTH_LOGON_CHALLENGE; //fixed in index
+	buf.ByteBuffer[1] = 0x00; //fixed in index
+
+	// later will be checking // fixed
+	std::string rI;
+	// fixed rI
+	rI = _login + ":" + _login;
+	_SetVSFields(rI);
+	
+	b.SetRand(19 * 8);
+	BigNumber gmod = g.ModExp(b, N);
+	B = ((v * 3) + gmod) % N;
+	
+	BigNumber unk3;
+	unk3.SetRand(16 * 8);
+
+	//copy byte
+	buf.ByteBuffer[2] = WOW_SUCCESS;
+	buf.AppendPackage(B.AsByteArray(32), 32, 3); // [3..34] B
+	buf.ByteBuffer[35] = 1; // [35..37] consts
+	buf.ByteBuffer[36] = 7; // fixed g.AsByteArray(1) // [35..37] consts
+	buf.ByteBuffer[37] = 32; // [35..37] consts
+	buf.AppendPackage(N.AsByteArray(32), 32, 38); // // [37, 38..69] modN
+	buf.AppendPackage(s.AsByteArray(), s.GetNumBytes(), 70); // [70..101] salt
+	buf.AppendPackage(unk3.AsByteArray(16), 16, 102); // [102..118] unk3
+
+	buf.BufferAuth_send(119);
+	return true;
 }
 
 bool AuthServer::_HandleLogonProof()
 {
-	ASLog.DebugLog("Entering _HandleLogonProof");
+	ASLog.DebugLog("Entering _HandleLogonProof\n");
 	return 0;
 }
 
 bool AuthServer::_HandleReconnectChallenge()
 {
-	ASLog.DebugLog("Entering _HandleReconnectChallenge");
+	ASLog.DebugLog("Entering _HandleReconnectChallenge\n");
 	return 0;
 }
 
 bool AuthServer::_HandleReconnectProof()
 {
-	ASLog.DebugLog("Entering _HandleReconnectProof");
+	ASLog.DebugLog("Entering _HandleReconnectProof\n");
 	return 0;
 }
 
 bool AuthServer::_HandleRealmList()
 {
-	ASLog.DebugLog("Entering _HandleRealmList");
+	ASLog.DebugLog("Entering _HandleRealmList\n");
 	return 0;
+}
+
+void ByteToALC_c(sAuthLogonChallenge_C ALCC, ByteBufferSocket buff)
+{
+
 }

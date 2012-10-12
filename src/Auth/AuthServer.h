@@ -35,5 +35,7 @@ class AuthServer
 
         std::string _login;
 		unsigned short _build;
+	    std::string _os;
+
 		Log ASLog;
 };
