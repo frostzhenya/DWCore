@@ -20,6 +20,7 @@
     <ClInclude Include="..\src\logs\Logs.h" />
     <ClInclude Include="..\src\Main.h" />
     <ClInclude Include="..\src\revision.h" />
+    <ClInclude Include="..\src\util\Conversion.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Auth\BufferedSocket.cpp" />

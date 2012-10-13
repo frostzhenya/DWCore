@@ -7,6 +7,9 @@
     <Filter Include="Logs">
       <UniqueIdentifier>{07a38e50-2f74-4c76-9b56-5e81428a4957}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Util">
+      <UniqueIdentifier>{87731746-8d6a-4fcb-a142-3d21620c1564}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Auth\AuthCodes.h">
@@ -29,6 +32,9 @@
     </ClInclude>
     <ClInclude Include="..\src\Auth\AuthServer.h">
       <Filter>Auth</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\Conversion.h">
+      <Filter>Util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

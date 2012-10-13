@@ -12,6 +12,8 @@
 
 void main()
 {
+	system("mode con cols=90 lines=35");
+
 	AuthServer pct;
 	pct._HandleLogonChallenge();
 

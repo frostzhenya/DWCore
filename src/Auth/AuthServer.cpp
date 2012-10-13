@@ -30,25 +30,6 @@ enum AccountFlags
 } sAuthLogonChallenge_S;
 */
 
-typedef struct AUTH_LOGON_CHALLENGE_C
-{
-	unsigned char cmd;
-	unsigned char error;
-	unsigned short size;
-	unsigned char gamename[4];
-	unsigned char version1;
-	unsigned char version2;
-	unsigned char version3;
-	unsigned short build;
-	unsigned char platform[4];
-	unsigned char os[4];
-	unsigned char country[4];
-	unsigned int timezone_bias;
-	unsigned int ip;
-	unsigned char I_len;
-	unsigned char I[1];
-} sAuthLogonChallenge_C;
-
 typedef struct AUTH_LOGON_PROOF_C
 {
 	unsigned char cmd;
@@ -158,39 +139,21 @@ bool AuthServer::_HandleLogonChallenge()
 	buf.BuildSocketsAuth();
 	buf.BufferAuth_recv(0x1000);
 
-	unsigned short remaining = ((sAuthLogonChallenge_C *)&buf.ByteBuffer)->size;
-	ASLog.DebugLog("[AuthChallenge] got header, body is %us#x bytes\n", remaining);
+	BuffToAUTH_LOGON_CHALLENGE_C();
 
-	// dynamic data
-	char* dynamicBuff = 0;
-	dynamicBuff = new char[buf.SizePackage()];
-	for (int i = 0; i < buf.SizePackage(); i++)
-	{
-		dynamicBuff[i] = buf.ByteBuffer[i];
-	}
+	_build = alc.build;
+	_login = alc.I;
+	_os = (const char*)alc.os;
 
-	sAuthLogonChallenge_C *ch = (sAuthLogonChallenge_C*)dynamicBuff;
-	ASLog.DebugLog("[AuthChallenge] got full packet, %us#x bytes\n", ch->size);
-	ASLog.DebugLog("[AuthChallenge] name(%d): '%s'\n",ch->I_len, ch->I);
-
-	//_build = ch->build;
-	_build = buf.ByteBuffer[11] + 256*buf.ByteBuffer[12]; // fixed
-	//_login = (const char*)ch->I;
-	//fixed
-	for (int i = 1; i <= buf.ByteBuffer[33]; i++)
-	{
-		_login += buf.ByteBuffer[34+i-1];
-	}
-    _os = (const char*)ch->os;
-
-	// clear memory
-	delete [] dynamicBuff;
-	dynamicBuff = 0;
+	ASLog.DebugLog("[AuthChallenge] got full packet, %us#x bytes\n", alc.size);
+	ASLog.DebugLog("[AuthChallenge] name(%d): %s\n",alc.I_len, alc.I.c_str());
+	ASLog.DebugLog("[AuthChallenge] Client Build [%us] Lang [%s] \n",alc.build, (const char*)alc.country);
+	ASLog.DebugLog("[AuthChallenge] OC [%s] platform [%s] \n",(const char*)alc.os, (const char*)alc.platform);
 
 	buf.BufferClear(buf.SizePackage());
 	// generate Package
-	buf.ByteBuffer[0] = CMD_AUTH_LOGON_CHALLENGE; //fixed in index
-	buf.ByteBuffer[1] = 0x00; //fixed in index
+	buf.ByteBuffer[0] = CMD_AUTH_LOGON_CHALLENGE;
+	buf.ByteBuffer[1] = 0x00;
 
 	// later will be checking // fixed
 	std::string rI;
@@ -249,7 +212,36 @@ bool AuthServer::_HandleRealmList()
 	return 0;
 }
 
-void ByteToALC_c(sAuthLogonChallenge_C ALCC, ByteBufferSocket buff)
+// conversion functions
+void AuthServer::BuffToAUTH_LOGON_CHALLENGE_C()
 {
-
+	alc.cmd = buf.ByteBuffer[0];
+	alc.error = buf.ByteBuffer[1];
+	alc.size = buf.ByteBuffer[2] + 256*buf.ByteBuffer[3];
+	alc.gamename[0] = buf.ByteBuffer[4];
+	alc.gamename[1] = buf.ByteBuffer[5];
+	alc.gamename[2] = buf.ByteBuffer[6];
+	alc.gamename[3] = buf.ByteBuffer[7];
+	alc.version1 = buf.ByteBuffer[8];
+	alc.version2 = buf.ByteBuffer[9];
+	alc.version3 = buf.ByteBuffer[10];
+	alc.build = buf.ByteBuffer[11] + 256*buf.ByteBuffer[12];
+	alc.platform[0] = buf.ByteBuffer[15];
+	alc.platform[1] = buf.ByteBuffer[14];
+	alc.platform[2] = buf.ByteBuffer[13];
+	alc.platform[3] = buf.ByteBuffer[16];
+	alc.os[0] = buf.ByteBuffer[19];
+	alc.os[1] = buf.ByteBuffer[18];
+	alc.os[2] = buf.ByteBuffer[17];
+	alc.os[3] = buf.ByteBuffer[20];
+	alc.country[0] = buf.ByteBuffer[24];
+	alc.country[1] = buf.ByteBuffer[23];
+	alc.country[2] = buf.ByteBuffer[22];
+	alc.country[3] = buf.ByteBuffer[21];
+	alc.country[4] = '\0';
+	alc.timezone_bias = 0;
+	alc.ip = 0;
+	alc.I_len = buf.ByteBuffer[33];
+	for (int i = 1; i <= alc.I_len; i++)
+		alc.I += buf.ByteBuffer[34+i-1];
 }
