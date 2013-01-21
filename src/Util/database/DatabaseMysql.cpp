@@ -119,11 +119,11 @@ MYSQL_ROW DatabaseMysql::Query(const char* sql)
 {
 	if (mysql_query(mMysql, sql) > 0)
 	{
-		DBLog.ErrDBLog("[SQL ERR]: %s",sql);
+		DBLog.ErrorLog("[SQL ERR]: %s",sql);
 		return 0;
 	}
 
-	DBLog.DebugLog("[QUERY]: %s", sql);
+	DBLog.DBLog("[QUERY]: %s", sql);
 
 	mRes = mysql_store_result(mMysql);
 

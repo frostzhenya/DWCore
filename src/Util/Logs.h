@@ -45,7 +45,7 @@ class Log
 		void setColor(Color color);
 		void MainLog(const char* str,...);
 		void ErrorLog(const char* str,...);
-		void ErrDBLog(const char* str,...);
+		void DBLog(const char* str,...);
 		void DebugLog(const char* str,...);
 	private:
 		std::string times();

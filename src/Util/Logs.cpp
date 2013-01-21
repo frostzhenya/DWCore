@@ -92,7 +92,7 @@ void Log::ErrorLog(const char* str,...)
 	if (!str)
 		return;
 	// test in color
-	setColor(BLUE);
+	setColor(RED);
 	
 	if (out_inlucdeTime)
 		outTime();
@@ -107,12 +107,12 @@ void Log::ErrorLog(const char* str,...)
 	fflush(stdout);
 }
 
-void Log::ErrDBLog(const char* str,...)
+void Log::DBLog(const char* str,...)
 {
 	if (!str)
 		return;
 	// test in color
-	setColor(RED);
+	setColor(BLUE);
 	
 	if (out_inlucdeTime)
 		outTime();
