@@ -165,7 +165,7 @@ void DatabaseMysql::escape_string(std::string& str)
     delete[] buf;
 }
 
-void DatabaseMysql::ResultFree()
+void DatabaseMysql::ResultFree(MYSQL_ROW free)
 {
-	mysql_free_result(mRes);
+	mysql_free_result(free);
 }

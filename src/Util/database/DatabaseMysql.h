@@ -33,7 +33,7 @@ public:
 	MYSQL_ROW PQuery(const char * format,...);
 	unsigned long Pescape_string(char *to, const char *from, unsigned long length);
 	void DatabaseMysql::escape_string(std::string& str);
-	void ResultFree();
+	void ResultFree(MYSQL_ROW free);
 
 private:
 	MYSQL_RES * mRes;
