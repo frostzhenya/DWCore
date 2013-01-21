@@ -208,7 +208,6 @@ void AuthServer::SendProof(Sha1Hash sha)
     {
 	case 5875:		// 1.12.1
 	case 6005:		// 1.12.2
-	case 7799:		// 2.3.3 DotaWoW Client
 	case 8606:		// 2.4.3
 	case 10505:		// 3.2.2a
 	case 11159:		// 3.3.0a
@@ -460,5 +459,53 @@ bool AuthServer::_HandleReconnectProof()
 bool AuthServer::_HandleRealmList()
 {
 	ASLog.DebugLog("Entering _HandleRealmList");
-	return 0;
+
+    if (recv_len() < 5)
+        return false;
+
+    recv_skip(5);
+
+	DBRow result = LoginDatabase.PQuery("SELECT id,sha_pass_hash FROM account WHERE username = '%s'",_safelogin.c_str());
+	if (!result)
+	{
+        ASLog.DebugLog("[ERROR] user %s tried to login and we cannot find him in the database.",_login.c_str());
+		close_connection();
+		return false;
+	}
+
+	uint32 id = atoi(result[0]);
+    std::string rI = result[1];
+    delete result;
+
+    //- Circle through realms in the RealmList and construct the return packet (including # of user characters in each realm)
+    ByteBuffer package;
+    LoadRealmlist(package, id);
+
+    ByteBuffer hdr;
+    hdr << (uint8) CMD_REALM_LIST;
+    hdr << (uint16)package.size();
+    hdr.append(package);
+
+    send((char const*)hdr.contents(), hdr.size());
+
+    return true;
+}
+
+void AuthServer::LoadRealmlist(ByteBuffer &package, uint32 acctid)
+{
+    switch(_build)
+    {
+		case 5875:                                          // 1.12.1
+		case 6005:                                          // 1.12.2
+		case 8606:                                          // 2.4.3
+		case 10505:                                         // 3.2.2a
+		case 11159:                                         // 3.3.0a
+		case 11403:                                         // 3.3.2
+		case 11723:                                         // 3.3.3a
+		case 12340:                                         // 3.3.5a
+		default:                                            // and later
+        {
+            package << uint32(0);                               // unused value
+		}
+    }
 }

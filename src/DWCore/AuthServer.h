@@ -35,6 +35,7 @@ class AuthServer: public BufferedSocket
 		bool _HandleReconnectChallenge();
 		bool _HandleReconnectProof();
 		bool _HandleRealmList();
+		void LoadRealmlist(ByteBuffer &package, uint32 acctid);
 
 	private:
         BigNumber N, s, g, v;
