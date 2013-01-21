@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Auth">
+      <UniqueIdentifier>{fc1afd25-a9ea-4476-8db9-6ecc178a2598}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\DWCore\AuthCodes.h">
+      <Filter>Auth</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\DWCore\AuthServer.h">
+      <Filter>Auth</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\DWCore\BufferedSocket.h">
+      <Filter>Auth</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\DWCore\Main.cpp" />
+    <ClCompile Include="..\..\src\DWCore\AuthServer.cpp">
+      <Filter>Auth</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\DWCore\BufferedSocket.cpp">
+      <Filter>Auth</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

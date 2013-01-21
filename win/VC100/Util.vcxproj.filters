@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="..\..\src\Util\Common.h" />
+    <ClInclude Include="..\..\src\Util\revision.h" />
+    <ClInclude Include="..\..\src\Util\Logs.h">
+      <Filter>Logs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Util\BigNumber.h">
+      <Filter>Auth</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\util\ByteBuffer.h">
+      <Filter>Auth</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Util\sha1.h">
+      <Filter>Auth</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Util\ByteConverter.h" />
+    <ClInclude Include="..\..\src\Util\CompilerDefs.h" />
+    <ClInclude Include="..\..\src\Util\Define.h" />
+    <ClInclude Include="..\..\src\Util\util.h" />
+    <ClInclude Include="..\..\src\Util\Config\Config.h">
+      <Filter>Config</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Util\database\DatabaseEnv.h">
+      <Filter>Database</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Util\database\DatabaseMysql.h">
+      <Filter>Database</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Logs">
+      <UniqueIdentifier>{5e337c03-d656-41b4-b0fe-07a2e45c3c17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Auth">
+      <UniqueIdentifier>{51a469ef-f02f-4c93-9674-9f00fbfa7915}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Config">
+      <UniqueIdentifier>{993a6af7-4647-47fb-a9ac-55062aaa39d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Database">
+      <UniqueIdentifier>{d038acf8-7596-4d87-af91-0e1e9b44d894}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\Util\Logs.cpp">
+      <Filter>Logs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Util\BigNumber.cpp">
+      <Filter>Auth</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Util\sha1.cpp">
+      <Filter>Auth</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Util\util.cpp" />
+    <ClCompile Include="..\..\src\Util\Config\Config.cpp">
+      <Filter>Config</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Util\database\DatabaseMysql.cpp">
+      <Filter>Database</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
